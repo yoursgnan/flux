@@ -18,7 +18,35 @@ npm install flux-js
 ## Quick Start
 
 ### Hello World Example
+```javascript
+const Flex = require('flux-js')
+const app = Flux({enable_cors:true})
 
+app.route('/hello').controller({
+  get: (req,res) =>  {
+    res.send('Hello World');
+  }
+})
+
+app.start(3000,()=>console.log('started'))
+```
+if a route has multiple dynamic values you use exisiting controller without defininig new get method
+```javascript
+const Flex = require('flux-js')
+const app = Flux({enable_cors:true})
+
+app.route('/hello').controller({
+  get: (req,res) =>  {
+    return {
+      '/':()=>{res.send('Hello World');},
+      '/:name':(name)=>{res.send(`Hello ${name}`)
+    }
+    
+  }
+})
+
+app.start(3000,()=>console.log('started'))
+```
 You can start a simple Flux.js application with a "Hello World" route that handles both GET and POST requests:
 
 ```javascript
