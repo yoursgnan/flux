@@ -135,9 +135,27 @@ module.exports = flux
 ```
 This way, you can switch between databases or add more in the future without modifying your models or business logic.
 
+## InBuilt Tokenization
+
+Flux.js allows you to create models easily, with built-in password encryption and token management applicable to any model. Here's how to define a model:
+
+Automatic Password Encryption: Specify encrypt: true in the model to ensure sensitive data is handled securely.
+Tokenization of Records: To create a unique token based on specific fields in your model, you can call 
+```
+this.createToken(['field1', 'field2'], expires='60*60')
+```
+in the POST request. This abstracts the logic of token generation, allowing you to create secure tokens without extra implementation details. 
+To retrieve the token from the request, simply use 
+```
+this.getToken().
+```
+
 Summary of Contents
 Basic Usage: Code examples for defining and using models in Flux.js.
 Managing Database Connections: Instructions on how to abstractly manage connections to both MongoDB and PostgreSQL through a manifest file.
+
+## Conclusion
+Flux.js combines the simplicity of Express.js with powerful features that streamline the development process for applications requiring database integration, secure password management, and token handling. It provides a cohesive structure for managing routes, controllers, and models, making it an ideal choice for backend development.
 
 ## Documentation
 
