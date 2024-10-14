@@ -102,14 +102,42 @@ To use the User model in your main application file:
 ```javascript
 // app.js
 const Flux = require('flux-js').flux({ enable_cors: true });
+const config = require('./manifest.js');
 const User = require('./user.js'); // Import the User model
 
+Flux.use(config)
 Flux.use(User); // Register the User model with Flux
 
 Flux.start(3000, () => {
   console.log('Flux.js server started on port 3000');
 });
 ```
+
+Managing Database Connections
+Flux.js abstracts the connection management for MongoDB and PostgreSQL through a manifest file where you define your database configurations. Here's a simplified way to manage both connections:
+
+```javascript
+// manifest.js
+const flux = require('flux-js').flux();
+
+flux.connect('mongo', {
+  uri: 'mongodb://localhost:27017/mydatabase', // MongoDB URI
+});
+
+flux.connect('postgres', {
+  host: 'localhost',
+  user: 'myuser',
+  password: 'mypassword',
+  database: 'mydatabase', // PostgreSQL database name
+});
+
+module.exports = flux
+```
+This way, you can switch between databases or add more in the future without modifying your models or business logic.
+
+Summary of Contents
+Basic Usage: Code examples for defining and using models in Flux.js.
+Managing Database Connections: Instructions on how to abstractly manage connections to both MongoDB and PostgreSQL through a manifest file.
 
 ## Documentation
 
