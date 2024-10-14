@@ -2,7 +2,11 @@
 
 Flux.js is a lightweight, flexible framework that wraps Express.js, providing a structured way to define routes, controllers, and models. It simplifies the development of applications by allowing you to manage all components in a cohesive manner.
 
+## Installation
+
+```bash
 npm install flux-js
+```
 
 ## Features
 
@@ -15,7 +19,7 @@ npm install flux-js
 
 ### Hello World Example
 
-You can start a simple Flux.js application with a "Hello World" route that handles both GET and POST requests like this:
+You can start a simple Flux.js application with a "Hello World" route that handles both GET and POST requests:
 
 ```javascript
 const Flux = require('flux-js').flux({ enable_cors: true });
@@ -41,9 +45,12 @@ Flux.use(HelloWorld);
 Flux.start(3000, () => {
   console.log('Flux.js server started on port 3000');
 });
+```
 
-Flux has inbuilt encryption at field definition level, which will reduce lot of overhead code
-and also for modularity , you can create flux model in seperate file and use it as below
+### User Model Example
+
+Flux has built-in encryption at the field definition level, which reduces overhead code. For modularity, you can create a Flux model in a separate file:
+
 ```javascript
 // user.js
 const Flux = require('flux-js').flux();
@@ -79,7 +86,6 @@ const User = Flux.route('/user')
     },
     post: (req, res) => {
       const body = req.body; // Automatically handles encryption
-
       return this.create(body)
         .then(newUser => res.status(201).json(newUser))
         .catch(error => res.status(400).json({ error: 'Failed to create user' }));
@@ -87,11 +93,14 @@ const User = Flux.route('/user')
   });
 
 module.exports = User;
+```
 
+### Starting the Application
 
-\\app.js
+To use the User model in your main application file:
+
 ```javascript
-// main.js
+// app.js
 const Flux = require('flux-js').flux({ enable_cors: true });
 const User = require('./user.js'); // Import the User model
 
@@ -100,13 +109,16 @@ Flux.use(User); // Register the User model with Flux
 Flux.start(3000, () => {
   console.log('Flux.js server started on port 3000');
 });
+```
 
+## Documentation
 
+For more detailed documentation, please visit our [official documentation](https://example.com/flux-js-docs).
 
-### Summary of Contents
+## Contributing
 
-1. **Hello World Example**: A simple Flux application that handles both GET and POST requests at the `/hello` route.
-2. **User Model Example**: Detailed implementation of a User model with automatic password encryption and defined routes for retrieving and creating users.
-3. **Starting the Application**: Instructions for initializing and running the Flux.js server.
+We welcome contributions! Please see our [Contributing Guide](https://example.com/contributing) for more details.
 
-This README now explicitly mentions and includes the User model code, along with the Hello World example and the complete startup instructions for using Flux.js.
+## License
+
+Flux.js is released under the MIT License. See the [LICENSE](https://example.com/license) file for more details.
